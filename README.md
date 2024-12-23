@@ -3,18 +3,9 @@
 =======
 # shopping_app
 
-A new Flutter project.
+# "HomeScreen"   a Statefull Widget displays two 3 sections : pageview of images , gridview of cards and listview of products
 
-## Getting Started
+# "MyGridContent"  grid view widget contains Row of CardWidget widgets
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# "CardWidget"  card widget to build gridview contains column of imge and row has txt and icon
 >>>>>>> a3d5982 (ui)
