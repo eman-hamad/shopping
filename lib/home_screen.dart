@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/components/card_widget.dart';
-
 import 'components/grid_view.dart';
 
 // a Statefull Widget displays two 3 sections : pageview of images ,
@@ -14,12 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- // 2 lists to  make imgs and txt reusable
+  // 2 lists to  make imgs and txt reusable
   var imgs = [
     "https://images.pexels.com/photos/2587370/pexels-photo-2587370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "https://images.pexels.com/photos/3612182/pexels-photo-3612182.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    "https://images.pexels.com/photos/2587370/pexels-photo-2587370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/2587370/pexels-photo-2587370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   ];
   var txts = ["Lip gloss", "Camera", "Sun screen", "Lip gloss", "Camera"];
@@ -30,8 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 33, 229, 243),
           title: const Center(
-            child:
-                Text("Let's Go Shopping", style: TextStyle(color: Colors.blueGrey)),
+            child: Text("Let's Go Shopping",
+                style: TextStyle(color: Colors.blueGrey)),
           ),
         ),
         // make page scrollable vertically
@@ -39,9 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SizedBox(
             height: 550,
             child: Column(
-           
-              
-
               children: [
                 const Align(
                   alignment: Alignment.topLeft,
@@ -134,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Image(
                               image: NetworkImage(imgs[index]),
                               fit: BoxFit.cover,
-                              width: MediaQuery.of(context).size.width*0.3,
-                              height: MediaQuery.of(context).size.height *0.16,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: MediaQuery.of(context).size.height * 0.16,
                             ),
                             Text(txts[index],
                                 style: const TextStyle(
@@ -153,9 +148,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-        )
-        //   ],
-        // ),
-        );
+        ));
   }
 }
