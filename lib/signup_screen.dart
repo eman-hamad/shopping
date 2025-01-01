@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/home_screen.dart';
 
@@ -27,8 +28,10 @@ class _SignupScreenState extends State<SignupScreen> {
       backgroundColor: const Color.fromARGB(255, 204, 218, 225),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 33, 229, 243),
-        title: const Center(
-          child: Text("Login", style: TextStyle(color: Colors.blueGrey)),
+        title: Center(
+          // translate to arabic
+          child: Text(tr("login_title"),
+              style: const TextStyle(color: Colors.blueGrey)),
         ),
       ),
       body: Padding(
@@ -95,7 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   obscureText: _obsequreConf,
                   decoration: InputDecoration(
                       hintText: "Enter Your Password Again ",
-                      prefixIcon: Icon(Icons.password),
+                      prefixIcon: const Icon(Icons.password),
                       suffixIcon: IconButton(
                           onPressed: () {
                             _obsequreConf = !_obsequreConf;
@@ -158,6 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ));
   }
+
 // function to animate button click to show home screen
   Route _createRoute() {
     return PageRouteBuilder(
