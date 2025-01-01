@@ -10,5 +10,5 @@
 # "CardWidget"  card widget to build gridview contains column of imge and row has txt and icon
 
 # "SignupScreen" stateful widget to sign up contains form of 4 text form fields (name , email , password , confirm password) and sign up button
-  -  _createRoute() // function to animate button click to show home screen
+  -  _createRoute() => function to animate button click to show home screen
 
