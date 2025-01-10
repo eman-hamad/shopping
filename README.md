@@ -2,6 +2,8 @@
 
 
 # shopping_app
+# localization :  display the content in Arabic by the translation in json files 
+# animation : animation  between the signup page and shopping page
 
 # "HomeScreen"   a Statefull Widget displays two 3 sections : pageview of images , gridview of cards and listview of products
 
