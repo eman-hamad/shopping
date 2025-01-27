@@ -2,6 +2,7 @@
 
 
 # shopping_app
+# sign in "firebase authentication" using email - password methode
 
 # "HomeScreen"   a Statefull Widget displays two 3 sections : pageview of images , gridview of cards and listview of products
 
