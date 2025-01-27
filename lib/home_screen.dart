@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // set translatin to arabic
-    context.setLocale(const Locale('ar', 'EG'));
+    context.setLocale(const Locale('en', 'US'));
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 204, 218, 225),
         appBar: AppBar(

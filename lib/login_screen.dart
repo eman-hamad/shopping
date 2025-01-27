@@ -1,16 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/home_screen.dart';
+import 'package:shopping_app/signup_screen.dart';
 
 // stateful widget to sign up
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _LoginScreenState extends State<LoginScreen> {
 // controllers to every text form field
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -31,8 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
         backgroundColor: const Color.fromARGB(255, 33, 229, 243),
         title: Center(
           // translate to arabic
-          child: Text(tr("login_title"),
-              style: const TextStyle(color: Colors.blueGrey)),
+          child: Text('Login', style: const TextStyle(color: Colors.blueGrey)),
         ),
       ),
       body: Padding(
@@ -42,21 +43,6 @@ class _SignupScreenState extends State<SignupScreen> {
             key: _formKey,
             child: Column(
               children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                      hintText: "Enter Your Full Name ",
-                      prefixIcon: Icon(Icons.abc),
-                      labelText: "Full name"),
-                  validator: (value) {
-                    // validate The first letter to be capitalized
-                    var upper = value![0];
-                    if (upper.toUpperCase() != value[0]) {
-                      return "The first letter should be capitalized";
-                    }
-                    return null;
-                  },
-                ),
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
@@ -94,29 +80,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     return null;
                   },
                 ),
-                TextFormField(
-                  controller: confirmPassController,
-                  obscureText: _obsequreConf,
-                  decoration: InputDecoration(
-                      hintText: "Enter Your Password Again ",
-                      prefixIcon: const Icon(Icons.password),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            _obsequreConf = !_obsequreConf;
-                            setState(() {});
-                          },
-                          icon: Icon(_obsequreConf
-                              ? Icons.visibility_off
-                              : Icons.visibility)),
-                      labelText: "Confirm Password"),
-                  validator: (value) {
-                    if (passwordController.text != value) {
-                      // validates this password match Your Password
-                      return "This Password doesn't match Your Password";
-                    }
-                    return null;
-                  },
-                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -127,22 +90,72 @@ class _SignupScreenState extends State<SignupScreen> {
                           backgroundColor: Colors.blueGrey),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          _showDialog();
-                          // animation function
+                          _signIn(
+                              emailController.text, passwordController.text);
+                          // firebase sign in function
                         }
                       },
                       child: const Text(
-                        "Sign Up",
+                        "Login",
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       )),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Haven't An Account ?"),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignupScreen(),
+                            ));
+                      },
+                      child: RichText(
+                        text: const TextSpan(
+                            text: "Sign UP",
+                            style: TextStyle(
+                                color: Colors.blueGrey,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    )
+                  ],
                 )
               ],
             )),
       ),
     );
+  }
+
+  // func to sign in by firebase "authentcation"
+  void _signIn(String emailAddress, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
+
+      if (credential.user != null) {
+        _showDialog();
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Login Failed")));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("No user found for that email.")));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Wrong password provided for that user.')));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.message ?? "Unkown ")));
+      }
+    }
   }
 
 // function to show dialog alert
@@ -162,25 +175,23 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ));
   }
+}
 
 // function to animate button click to show home screen
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const HomeScreen(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.bounceInOut;
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.bounceInOut;
 
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
