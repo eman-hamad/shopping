@@ -1,6 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/home_screen.dart';
+import 'package:shopping_app/save_data_screen.dart';
+import 'package:shopping_app/service/firebase_service.dart';
 
 // stateful widget to sign up
 class SignupScreen extends StatefulWidget {
@@ -24,15 +25,12 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.setLocale(const Locale('en', 'US'));
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 204, 218, 225),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 33, 229, 243),
-        title: Center(
-          // translate to arabic
-          child: Text(tr("login_title"),
-              style: const TextStyle(color: Colors.blueGrey)),
+        title: const Center(
+          child: Text("Sign Up", style: TextStyle(color: Colors.blueGrey)),
         ),
       ),
       body: Padding(
@@ -99,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   obscureText: _obsequreConf,
                   decoration: InputDecoration(
                       hintText: "Enter Your Password Again ",
-                      prefixIcon: const Icon(Icons.password),
+                      prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
                           onPressed: () {
                             _obsequreConf = !_obsequreConf;
@@ -128,7 +126,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _showDialog();
-                          // animation function
                         }
                       },
                       child: const Text(
@@ -147,6 +144,10 @@ class _SignupScreenState extends State<SignupScreen> {
 
 // function to show dialog alert
   Future<void> _showDialog() async {
+
+    try {
+      FirebaseService().signUp(email: emailController.text, password: passwordController.text);
+   
     return showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -156,31 +157,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.of(context).push(_createRoute());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SaveDataScreen()));
                     },
-                    child: const Text("Exit")),
+                    child: const Text("Exit"))
               ],
             ));
-  }
-
-// function to animate button click to show home screen
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const HomeScreen(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.bounceInOut;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
+    }
+    catch (e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }

@@ -72,4 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'shopping-d7a0e.firebasestorage.app',
     iosBundleId: 'com.example.shoppingApp',
   );
+
 }
