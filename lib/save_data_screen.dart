@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shopping_app/display_data.dart';
 import 'package:shopping_app/home_screen.dart';
+import 'package:shopping_app/profile_screen.dart';
 import 'package:shopping_app/service/firebase_service.dart';
 
 // stateful widget to sign up
@@ -22,6 +24,7 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
   // key to the form
   final _formKey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     context.setLocale(const Locale('en', 'US'));
@@ -34,6 +37,7 @@ class _SaveDataScreenState extends State<SaveDataScreen> {
           child: Text("Lets' save your Data",
               style: TextStyle(color: Colors.blueGrey)),
         ),
+        
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
