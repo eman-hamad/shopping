@@ -4,6 +4,9 @@
 # shopping_app
 
 
+![test1](https://github.com/user-attachments/assets/0ae4d0f9-157d-46d1-87b7-f996fbf3158e)
+
+![test2](https://github.com/user-attachments/assets/bb1a99a6-b458-49f5-802a-acfb5f6b7a85)
 
 ![WhatsApp Image 2025-02-19 at 10 35 21 PM (1)](https://github.com/user-attachments/assets/9d0ad781-db72-4087-b5b9-a20a3c43f075)
 
