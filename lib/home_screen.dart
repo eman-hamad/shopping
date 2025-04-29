@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'components/grid_view.dart';
 
@@ -20,16 +21,20 @@ class _HomeScreenState extends State<HomeScreen> {
         "https://images.pexels.com/photos/2587370/pexels-photo-2587370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   ];
-  var txts = ["Lip gloss", "Camera", "Sun screen", "Lip gloss", "Camera"];
+  // translate to arabic
+  var txts = [tr("item1"), tr("item2"), tr("item3"), tr("item1"), tr("item2")];
   @override
   Widget build(BuildContext context) {
+    // set translatin to arabic
+    context.setLocale(const Locale('ar', 'EG'));
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 204, 218, 225),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 33, 229, 243),
-          title: const Center(
-            child: Text("Let's Go Shopping",
-                style: TextStyle(color: Colors.blueGrey)),
+          title: Center(
+            // translate to arabic
+            child: Text(tr("title"),
+                style: const TextStyle(color: Colors.blueGrey)),
           ),
         ),
         // make page scrollable vertically
@@ -38,13 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 550,
             child: Column(
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    padding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 10),
                     child: Text(
-                      "our products",
-                      style: TextStyle(
+                      // translate to arabic
+                      tr("section1"),
+                      style: const TextStyle(
                           color: Colors.blueGrey,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
@@ -110,9 +117,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                const Text(
-                  "hot offers",
-                  style: TextStyle(
+                Text(
+                  // translate to arabic
+                  tr("section2"),
+                  style: const TextStyle(
                       color: Colors.blueGrey,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
