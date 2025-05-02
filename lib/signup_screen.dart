@@ -124,6 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _showDialog();
+                          // animation function
                         }
                       },
                       child: const Text(
@@ -151,13 +152,30 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
+                      Navigator.of(context).push(_createRoute());
                     },
-                    child: const Text("Exit"))
+                    child: const Text("Exit")),
               ],
             ));
+  }
+// function to animate button click to show home screen
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const HomeScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.bounceInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }
